@@ -102,3 +102,33 @@ public class Solution {
     }
    
 }
+
+
+//here's the code in CPP
+#include <bits/stdc++.h>
+void printNodesSumToS(BinaryTreeNode<int> *root, int s) {
+
+    // Write your code here
+	  // Step 1: Inorder traversal to get sorted array of nodes
+    stack<BinaryTreeNode<int>*> stk;
+    BinaryTreeNode<int>* node = root;
+    unordered_set<int> set;
+
+    while (node || !stk.empty()) {
+        while (node) {
+            stk.push(node);
+            node = node->left;
+        }
+        node = stk.top();
+        stk.pop();
+
+        // Step 2: Check if the complementary node is already found
+        int complement = s - node->data;
+        if (set.find(complement) != set.end()) {
+            cout << complement << " " << node->data << endl;
+        }
+        set.insert(node->data);
+
+        node = node->right;
+    }
+}
